@@ -21,6 +21,21 @@ const IndiaMap: React.FC = () => {
     'gujarat': { name: 'Gujarat', reports: 445, resolved: 312, pending: 133 },
     'rajasthan': { name: 'Rajasthan', reports: 389, resolved: 267, pending: 122 },
     'uttar-pradesh': { name: 'Uttar Pradesh', reports: 567, resolved: 398, pending: 169 },
+    'madhya-pradesh': { name: 'Madhya Pradesh', reports: 334, resolved: 234, pending: 100 },
+    'andhra-pradesh': { name: 'Andhra Pradesh', reports: 278, resolved: 195, pending: 83 },
+    'telangana': { name: 'Telangana', reports: 245, resolved: 172, pending: 73 },
+    'kerala': { name: 'Kerala', reports: 198, resolved: 156, pending: 42 },
+    'odisha': { name: 'Odisha', reports: 167, resolved: 118, pending: 49 },
+    'bihar': { name: 'Bihar', reports: 234, resolved: 145, pending: 89 },
+    'jharkhand': { name: 'Jharkhand', reports: 123, resolved: 87, pending: 36 },
+    'assam': { name: 'Assam', reports: 145, resolved: 98, pending: 47 },
+    'punjab': { name: 'Punjab', reports: 189, resolved: 134, pending: 55 },
+    'haryana': { name: 'Haryana', reports: 156, resolved: 112, pending: 44 },
+    'himachal-pradesh': { name: 'Himachal Pradesh', reports: 89, resolved: 67, pending: 22 },
+    'uttarakhand': { name: 'Uttarakhand', reports: 78, resolved: 56, pending: 22 },
+    'goa': { name: 'Goa', reports: 45, resolved: 38, pending: 7 },
+    'jammu-kashmir': { name: 'Jammu & Kashmir', reports: 67, resolved: 45, pending: 22 },
+    'ladakh': { name: 'Ladakh', reports: 23, resolved: 18, pending: 5 },
   };
 
   const recentReports = [
@@ -48,6 +63,12 @@ const IndiaMap: React.FC = () => {
       case 'resolved': return CheckCircle;
       default: return AlertCircle;
     }
+  };
+
+  const getActivityColor = (reports: number) => {
+    if (reports > 500) return '#ef4444'; // red
+    if (reports > 200) return '#f59e0b'; // yellow
+    return '#22c55e'; // green
   };
 
   return (
@@ -84,98 +105,422 @@ const IndiaMap: React.FC = () => {
                 </div>
               </div>
 
-              {/* Simplified India Map */}
-              <div className="relative bg-blue-50 rounded-lg p-8 min-h-[500px] flex items-center justify-center">
-                <svg viewBox="0 0 800 600" className="w-full h-full max-w-2xl">
-                  {/* Simplified India outline */}
+              {/* India Map SVG */}
+              <div className="relative bg-blue-50 rounded-lg p-4 min-h-[600px]">
+                <svg viewBox="0 0 1000 800" className="w-full h-full">
+                  {/* India outline and states */}
+                  
+                  {/* Jammu & Kashmir */}
                   <path
-                    d="M200 100 L600 100 L650 150 L680 200 L700 300 L680 400 L650 450 L600 500 L400 520 L300 500 L250 450 L200 400 L180 300 L200 200 Z"
-                    fill="#e5e7eb"
+                    d="M280 80 L320 70 L360 85 L380 110 L370 140 L340 150 L300 145 L270 120 Z"
+                    fill={hoveredState === 'jammu-kashmir' ? '#dbeafe' : '#f3f4f6'}
                     stroke="#9ca3af"
-                    strokeWidth="2"
-                    className="transition-colors"
+                    strokeWidth="1"
+                    className="cursor-pointer transition-colors hover:fill-blue-100"
+                    onMouseEnter={() => setHoveredState('jammu-kashmir')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('jammu-kashmir')}
                   />
                   
-                  {/* State markers */}
-                  <g>
-                    {/* Maharashtra - Mumbai */}
-                    <circle
-                      cx="300"
-                      cy="350"
-                      r="8"
-                      fill="#ef4444"
-                      className="cursor-pointer hover:r-10 transition-all"
-                      onMouseEnter={() => setHoveredState('maharashtra')}
-                      onMouseLeave={() => setHoveredState(null)}
-                      onClick={() => setSelectedState('maharashtra')}
-                    />
-                    <text x="315" y="355" className="text-xs fill-gray-700 font-medium">Mumbai</text>
-                    
-                    {/* Karnataka - Bangalore */}
-                    <circle
-                      cx="350"
-                      cy="400"
-                      r="6"
-                      fill="#f59e0b"
-                      className="cursor-pointer hover:r-8 transition-all"
-                      onMouseEnter={() => setHoveredState('karnataka')}
-                      onMouseLeave={() => setHoveredState(null)}
-                      onClick={() => setSelectedState('karnataka')}
-                    />
-                    <text x="365" y="405" className="text-xs fill-gray-700 font-medium">Bangalore</text>
-                    
-                    {/* Delhi */}
-                    <circle
-                      cx="350"
-                      cy="200"
-                      r="6"
-                      fill="#f59e0b"
-                      className="cursor-pointer hover:r-8 transition-all"
-                      onMouseEnter={() => setHoveredState('delhi')}
-                      onMouseLeave={() => setHoveredState(null)}
-                      onClick={() => setSelectedState('delhi')}
-                    />
-                    <text x="365" y="205" className="text-xs fill-gray-700 font-medium">Delhi</text>
-                    
-                    {/* Tamil Nadu - Chennai */}
-                    <circle
-                      cx="420"
-                      cy="450"
-                      r="6"
-                      fill="#f59e0b"
-                      className="cursor-pointer hover:r-8 transition-all"
-                      onMouseEnter={() => setHoveredState('tamil-nadu')}
-                      onMouseLeave={() => setHoveredState(null)}
-                      onClick={() => setSelectedState('tamil-nadu')}
-                    />
-                    <text x="435" y="455" className="text-xs fill-gray-700 font-medium">Chennai</text>
-                    
-                    {/* West Bengal - Kolkata */}
-                    <circle
-                      cx="500"
-                      cy="280"
-                      r="5"
-                      fill="#22c55e"
-                      className="cursor-pointer hover:r-7 transition-all"
-                      onMouseEnter={() => setHoveredState('west-bengal')}
-                      onMouseLeave={() => setHoveredState(null)}
-                      onClick={() => setSelectedState('west-bengal')}
-                    />
-                    <text x="515" y="285" className="text-xs fill-gray-700 font-medium">Kolkata</text>
-                    
-                    {/* Gujarat - Ahmedabad */}
-                    <circle
-                      cx="250"
-                      cy="280"
-                      r="5"
-                      fill="#22c55e"
-                      className="cursor-pointer hover:r-7 transition-all"
-                      onMouseEnter={() => setHoveredState('gujarat')}
-                      onMouseLeave={() => setHoveredState(null)}
-                      onClick={() => setSelectedState('gujarat')}
-                    />
-                    <text x="265" y="285" className="text-xs fill-gray-700 font-medium">Ahmedabad</text>
-                  </g>
+                  {/* Ladakh */}
+                  <path
+                    d="M380 85 L420 75 L460 90 L480 120 L470 150 L440 160 L400 155 L380 130 Z"
+                    fill={hoveredState === 'ladakh' ? '#dbeafe' : '#f3f4f6'}
+                    stroke="#9ca3af"
+                    strokeWidth="1"
+                    className="cursor-pointer transition-colors hover:fill-blue-100"
+                    onMouseEnter={() => setHoveredState('ladakh')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('ladakh')}
+                  />
+
+                  {/* Punjab */}
+                  <path
+                    d="M280 150 L320 145 L340 160 L335 180 L315 190 L285 185 L270 170 Z"
+                    fill={hoveredState === 'punjab' ? '#dbeafe' : '#f3f4f6'}
+                    stroke="#9ca3af"
+                    strokeWidth="1"
+                    className="cursor-pointer transition-colors hover:fill-blue-100"
+                    onMouseEnter={() => setHoveredState('punjab')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('punjab')}
+                  />
+
+                  {/* Haryana */}
+                  <path
+                    d="M320 160 L360 155 L380 170 L375 190 L355 200 L335 195 L320 180 Z"
+                    fill={hoveredState === 'haryana' ? '#dbeafe' : '#f3f4f6'}
+                    stroke="#9ca3af"
+                    strokeWidth="1"
+                    className="cursor-pointer transition-colors hover:fill-blue-100"
+                    onMouseEnter={() => setHoveredState('haryana')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('haryana')}
+                  />
+
+                  {/* Delhi */}
+                  <circle
+                    cx="350"
+                    cy="180"
+                    r="8"
+                    fill={hoveredState === 'delhi' ? '#dbeafe' : '#fef3c7'}
+                    stroke="#9ca3af"
+                    strokeWidth="1"
+                    className="cursor-pointer transition-colors hover:fill-blue-100"
+                    onMouseEnter={() => setHoveredState('delhi')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('delhi')}
+                  />
+
+                  {/* Himachal Pradesh */}
+                  <path
+                    d="M300 120 L340 115 L370 130 L365 150 L340 155 L310 150 L295 135 Z"
+                    fill={hoveredState === 'himachal-pradesh' ? '#dbeafe' : '#f3f4f6'}
+                    stroke="#9ca3af"
+                    strokeWidth="1"
+                    className="cursor-pointer transition-colors hover:fill-blue-100"
+                    onMouseEnter={() => setHoveredState('himachal-pradesh')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('himachal-pradesh')}
+                  />
+
+                  {/* Uttarakhand */}
+                  <path
+                    d="M380 155 L420 150 L440 165 L435 185 L415 195 L395 190 L380 175 Z"
+                    fill={hoveredState === 'uttarakhand' ? '#dbeafe' : '#f3f4f6'}
+                    stroke="#9ca3af"
+                    strokeWidth="1"
+                    className="cursor-pointer transition-colors hover:fill-blue-100"
+                    onMouseEnter={() => setHoveredState('uttarakhand')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('uttarakhand')}
+                  />
+
+                  {/* Rajasthan */}
+                  <path
+                    d="M180 200 L280 190 L320 210 L340 250 L320 300 L280 320 L220 310 L180 280 L160 240 Z"
+                    fill={hoveredState === 'rajasthan' ? '#dbeafe' : '#fef3c7'}
+                    stroke="#9ca3af"
+                    strokeWidth="1"
+                    className="cursor-pointer transition-colors hover:fill-blue-100"
+                    onMouseEnter={() => setHoveredState('rajasthan')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('rajasthan')}
+                  />
+
+                  {/* Gujarat */}
+                  <path
+                    d="M120 280 L180 270 L220 290 L240 330 L220 380 L180 400 L140 390 L120 350 L110 320 Z"
+                    fill={hoveredState === 'gujarat' ? '#dbeafe' : '#dcfce7'}
+                    stroke="#9ca3af"
+                    strokeWidth="1"
+                    className="cursor-pointer transition-colors hover:fill-blue-100"
+                    onMouseEnter={() => setHoveredState('gujarat')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('gujarat')}
+                  />
+
+                  {/* Uttar Pradesh */}
+                  <path
+                    d="M380 200 L480 195 L520 210 L540 240 L530 280 L500 300 L460 295 L420 285 L380 270 L360 240 Z"
+                    fill={hoveredState === 'uttar-pradesh' ? '#dbeafe' : '#dcfce7'}
+                    stroke="#9ca3af"
+                    strokeWidth="1"
+                    className="cursor-pointer transition-colors hover:fill-blue-100"
+                    onMouseEnter={() => setHoveredState('uttar-pradesh')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('uttar-pradesh')}
+                  />
+
+                  {/* Madhya Pradesh */}
+                  <path
+                    d="M280 320 L380 310 L460 320 L480 350 L470 390 L440 410 L380 405 L320 400 L280 380 L260 350 Z"
+                    fill={hoveredState === 'madhya-pradesh' ? '#dbeafe' : '#fdf2f8'}
+                    stroke="#9ca3af"
+                    strokeWidth="1"
+                    className="cursor-pointer transition-colors hover:fill-blue-100"
+                    onMouseEnter={() => setHoveredState('madhya-pradesh')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('madhya-pradesh')}
+                  />
+
+                  {/* Maharashtra */}
+                  <path
+                    d="M240 400 L320 395 L380 410 L400 450 L380 490 L340 500 L280 495 L240 470 L220 440 Z"
+                    fill={hoveredState === 'maharashtra' ? '#dbeafe' : '#e0e7ff'}
+                    stroke="#9ca3af"
+                    strokeWidth="1"
+                    className="cursor-pointer transition-colors hover:fill-blue-100"
+                    onMouseEnter={() => setHoveredState('maharashtra')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('maharashtra')}
+                  />
+
+                  {/* Karnataka */}
+                  <path
+                    d="M280 500 L340 495 L380 510 L400 540 L380 580 L340 590 L300 585 L280 560 L270 530 Z"
+                    fill={hoveredState === 'karnataka' ? '#dbeafe' : '#f0fdf4'}
+                    stroke="#9ca3af"
+                    strokeWidth="1"
+                    className="cursor-pointer transition-colors hover:fill-blue-100"
+                    onMouseEnter={() => setHoveredState('karnataka')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('karnataka')}
+                  />
+
+                  {/* Tamil Nadu */}
+                  <path
+                    d="M380 580 L420 575 L450 590 L470 620 L460 660 L430 680 L400 675 L380 650 L370 620 Z"
+                    fill={hoveredState === 'tamil-nadu' ? '#dbeafe' : '#f3e8ff'}
+                    stroke="#9ca3af"
+                    strokeWidth="1"
+                    className="cursor-pointer transition-colors hover:fill-blue-100"
+                    onMouseEnter={() => setHoveredState('tamil-nadu')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('tamil-nadu')}
+                  />
+
+                  {/* Kerala */}
+                  <path
+                    d="M300 590 L340 585 L360 600 L370 630 L360 660 L340 670 L320 665 L300 650 L290 620 Z"
+                    fill={hoveredState === 'kerala' ? '#dbeafe' : '#ecfdf5'}
+                    stroke="#9ca3af"
+                    strokeWidth="1"
+                    className="cursor-pointer transition-colors hover:fill-blue-100"
+                    onMouseEnter={() => setHoveredState('kerala')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('kerala')}
+                  />
+
+                  {/* Andhra Pradesh */}
+                  <path
+                    d="M400 450 L460 445 L500 460 L520 490 L510 530 L480 550 L440 545 L400 530 L390 490 Z"
+                    fill={hoveredState === 'andhra-pradesh' ? '#dbeafe' : '#dcfce7'}
+                    stroke="#9ca3af"
+                    strokeWidth="1"
+                    className="cursor-pointer transition-colors hover:fill-blue-100"
+                    onMouseEnter={() => setHoveredState('andhra-pradesh')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('andhra-pradesh')}
+                  />
+
+                  {/* Telangana */}
+                  <path
+                    d="M440 410 L480 405 L500 420 L495 450 L480 465 L460 460 L440 445 L435 425 Z"
+                    fill={hoveredState === 'telangana' ? '#dbeafe' : '#fef3c7'}
+                    stroke="#9ca3af"
+                    strokeWidth="1"
+                    className="cursor-pointer transition-colors hover:fill-blue-100"
+                    onMouseEnter={() => setHoveredState('telangana')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('telangana')}
+                  />
+
+                  {/* Odisha */}
+                  <path
+                    d="M520 350 L580 345 L600 370 L595 410 L570 430 L540 425 L520 400 L515 375 Z"
+                    fill={hoveredState === 'odisha' ? '#dbeafe' : '#fdf2f8'}
+                    stroke="#9ca3af"
+                    strokeWidth="1"
+                    className="cursor-pointer transition-colors hover:fill-blue-100"
+                    onMouseEnter={() => setHoveredState('odisha')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('odisha')}
+                  />
+
+                  {/* West Bengal */}
+                  <path
+                    d="M580 280 L620 275 L640 300 L635 340 L610 360 L580 355 L570 330 L575 305 Z"
+                    fill={hoveredState === 'west-bengal' ? '#dbeafe' : '#e0f2fe'}
+                    stroke="#9ca3af"
+                    strokeWidth="1"
+                    className="cursor-pointer transition-colors hover:fill-blue-100"
+                    onMouseEnter={() => setHoveredState('west-bengal')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('west-bengal')}
+                  />
+
+                  {/* Bihar */}
+                  <path
+                    d="M520 240 L580 235 L600 250 L595 280 L570 295 L540 290 L520 275 L515 255 Z"
+                    fill={hoveredState === 'bihar' ? '#dbeafe' : '#fef7cd'}
+                    stroke="#9ca3af"
+                    strokeWidth="1"
+                    className="cursor-pointer transition-colors hover:fill-blue-100"
+                    onMouseEnter={() => setHoveredState('bihar')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('bihar')}
+                  />
+
+                  {/* Jharkhand */}
+                  <path
+                    d="M540 300 L580 295 L600 310 L595 340 L570 355 L540 350 L525 335 L530 315 Z"
+                    fill={hoveredState === 'jharkhand' ? '#dbeafe' : '#f0fdf4'}
+                    stroke="#9ca3af"
+                    strokeWidth="1"
+                    className="cursor-pointer transition-colors hover:fill-blue-100"
+                    onMouseEnter={() => setHoveredState('jharkhand')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('jharkhand')}
+                  />
+
+                  {/* Assam */}
+                  <path
+                    d="M640 250 L720 245 L740 270 L735 300 L710 315 L680 310 L660 295 L645 275 Z"
+                    fill={hoveredState === 'assam' ? '#dbeafe' : '#ecfdf5'}
+                    stroke="#9ca3af"
+                    strokeWidth="1"
+                    className="cursor-pointer transition-colors hover:fill-blue-100"
+                    onMouseEnter={() => setHoveredState('assam')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('assam')}
+                  />
+
+                  {/* Goa */}
+                  <circle
+                    cx="220"
+                    cy="520"
+                    r="6"
+                    fill={hoveredState === 'goa' ? '#dbeafe' : '#fef3c7'}
+                    stroke="#9ca3af"
+                    strokeWidth="1"
+                    className="cursor-pointer transition-colors hover:fill-blue-100"
+                    onMouseEnter={() => setHoveredState('goa')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('goa')}
+                  />
+
+                  {/* City markers with activity indicators */}
+                  
+                  {/* Mumbai */}
+                  <circle
+                    cx="240"
+                    cy="470"
+                    r="8"
+                    fill={getActivityColor(stateData['maharashtra']?.reports || 0)}
+                    className="cursor-pointer hover:opacity-80 transition-opacity"
+                    onMouseEnter={() => setHoveredState('maharashtra')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('maharashtra')}
+                  />
+                  <text x="250" y="475" className="text-xs fill-gray-700 font-medium">Mumbai</text>
+
+                  {/* Delhi */}
+                  <circle
+                    cx="350"
+                    cy="180"
+                    r="6"
+                    fill={getActivityColor(stateData['delhi']?.reports || 0)}
+                    className="cursor-pointer hover:opacity-80 transition-opacity"
+                    onMouseEnter={() => setHoveredState('delhi')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('delhi')}
+                  />
+                  <text x="360" y="185" className="text-xs fill-gray-700 font-medium">Delhi</text>
+
+                  {/* Bangalore */}
+                  <circle
+                    cx="340"
+                    cy="550"
+                    r="6"
+                    fill={getActivityColor(stateData['karnataka']?.reports || 0)}
+                    className="cursor-pointer hover:opacity-80 transition-opacity"
+                    onMouseEnter={() => setHoveredState('karnataka')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('karnataka')}
+                  />
+                  <text x="350" y="555" className="text-xs fill-gray-700 font-medium">Bangalore</text>
+
+                  {/* Chennai */}
+                  <circle
+                    cx="430"
+                    cy="620"
+                    r="6"
+                    fill={getActivityColor(stateData['tamil-nadu']?.reports || 0)}
+                    className="cursor-pointer hover:opacity-80 transition-opacity"
+                    onMouseEnter={() => setHoveredState('tamil-nadu')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('tamil-nadu')}
+                  />
+                  <text x="440" y="625" className="text-xs fill-gray-700 font-medium">Chennai</text>
+
+                  {/* Kolkata */}
+                  <circle
+                    cx="600"
+                    cy="320"
+                    r="5"
+                    fill={getActivityColor(stateData['west-bengal']?.reports || 0)}
+                    className="cursor-pointer hover:opacity-80 transition-opacity"
+                    onMouseEnter={() => setHoveredState('west-bengal')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('west-bengal')}
+                  />
+                  <text x="610" y="325" className="text-xs fill-gray-700 font-medium">Kolkata</text>
+
+                  {/* Hyderabad */}
+                  <circle
+                    cx="460"
+                    cy="430"
+                    r="5"
+                    fill={getActivityColor(stateData['telangana']?.reports || 0)}
+                    className="cursor-pointer hover:opacity-80 transition-opacity"
+                    onMouseEnter={() => setHoveredState('telangana')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('telangana')}
+                  />
+                  <text x="470" y="435" className="text-xs fill-gray-700 font-medium">Hyderabad</text>
+
+                  {/* Ahmedabad */}
+                  <circle
+                    cx="180"
+                    cy="320"
+                    r="5"
+                    fill={getActivityColor(stateData['gujarat']?.reports || 0)}
+                    className="cursor-pointer hover:opacity-80 transition-opacity"
+                    onMouseEnter={() => setHoveredState('gujarat')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('gujarat')}
+                  />
+                  <text x="190" y="325" className="text-xs fill-gray-700 font-medium">Ahmedabad</text>
+
+                  {/* Jaipur */}
+                  <circle
+                    cx="280"
+                    cy="250"
+                    r="5"
+                    fill={getActivityColor(stateData['rajasthan']?.reports || 0)}
+                    className="cursor-pointer hover:opacity-80 transition-opacity"
+                    onMouseEnter={() => setHoveredState('rajasthan')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('rajasthan')}
+                  />
+                  <text x="290" y="255" className="text-xs fill-gray-700 font-medium">Jaipur</text>
+
+                  {/* Lucknow */}
+                  <circle
+                    cx="450"
+                    cy="240"
+                    r="5"
+                    fill={getActivityColor(stateData['uttar-pradesh']?.reports || 0)}
+                    className="cursor-pointer hover:opacity-80 transition-opacity"
+                    onMouseEnter={() => setHoveredState('uttar-pradesh')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('uttar-pradesh')}
+                  />
+                  <text x="460" y="245" className="text-xs fill-gray-700 font-medium">Lucknow</text>
+
+                  {/* Bhopal */}
+                  <circle
+                    cx="380"
+                    cy="360"
+                    r="4"
+                    fill={getActivityColor(stateData['madhya-pradesh']?.reports || 0)}
+                    className="cursor-pointer hover:opacity-80 transition-opacity"
+                    onMouseEnter={() => setHoveredState('madhya-pradesh')}
+                    onMouseLeave={() => setHoveredState(null)}
+                    onClick={() => setSelectedState('madhya-pradesh')}
+                  />
+                  <text x="390" y="365" className="text-xs fill-gray-700 font-medium">Bhopal</text>
                 </svg>
 
                 {/* Hover tooltip */}
@@ -305,8 +650,9 @@ const IndiaMap: React.FC = () => {
         <div className="mt-8 bg-blue-50 rounded-xl p-6 text-center">
           <h3 className="text-lg font-semibold text-gray-900 mb-2">How to Use the Map</h3>
           <p className="text-gray-600">
-            Click on any city marker to view detailed statistics for that state. 
+            Click on any state or city marker to view detailed statistics. 
             Hover over markers to see quick information about report activity.
+            Marker colors indicate activity levels: red (high), yellow (medium), green (low).
           </p>
         </div>
       </div>
