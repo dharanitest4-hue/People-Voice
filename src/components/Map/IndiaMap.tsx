@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Info } from 'lucide-react';
+import { Info } from 'lucide-react';
 
 interface StateData {
   name: string;
@@ -302,7 +302,7 @@ const IndiaMap: React.FC = () => {
                   </div>
                   <div className="flex items-center space-x-2">
                     <div className="w-4 h-4 bg-green-500 rounded"></div>
-                    <span>Low Priority (<200 reports)</span>
+                    <span>Low Priority (&lt;200 reports)</span>
                   </div>
                 </div>
               </div>
