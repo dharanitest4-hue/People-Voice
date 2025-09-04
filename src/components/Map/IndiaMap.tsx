@@ -8,6 +8,7 @@ interface StateData {
   coordinates: { x: number; y: number };
   color: string;
   path: string;
+  type: 'state' | 'ut';
 }
 
 const IndiaMap: React.FC = () => {
@@ -15,13 +16,24 @@ const IndiaMap: React.FC = () => {
   const [hoveredState, setHoveredState] = useState<string | null>(null);
 
   const statesData: StateData[] = [
+    // Northern States
     { 
       name: 'Jammu & Kashmir', 
       code: 'JK', 
       activeReports: 234, 
       coordinates: { x: 180, y: 60 }, 
       color: '#10b981',
-      path: 'M160,40 L200,35 L220,50 L210,70 L190,75 L170,65 Z'
+      path: 'M160,40 L200,35 L220,50 L210,70 L190,75 L170,65 Z',
+      type: 'ut'
+    },
+    { 
+      name: 'Ladakh', 
+      code: 'LA', 
+      activeReports: 89, 
+      coordinates: { x: 220, y: 50 }, 
+      color: '#10b981',
+      path: 'M200,30 L250,25 L270,45 L260,65 L230,60 L210,50 Z',
+      type: 'ut'
     },
     { 
       name: 'Himachal Pradesh', 
@@ -29,7 +41,8 @@ const IndiaMap: React.FC = () => {
       activeReports: 156, 
       coordinates: { x: 200, y: 80 }, 
       color: '#10b981',
-      path: 'M180,70 L220,65 L240,80 L230,95 L200,90 L185,85 Z'
+      path: 'M180,70 L220,65 L240,80 L230,95 L200,90 L185,85 Z',
+      type: 'state'
     },
     { 
       name: 'Punjab', 
@@ -37,7 +50,17 @@ const IndiaMap: React.FC = () => {
       activeReports: 298, 
       coordinates: { x: 180, y: 100 }, 
       color: '#10b981',
-      path: 'M160,90 L190,85 L200,100 L185,115 L165,110 Z'
+      path: 'M160,90 L190,85 L200,100 L185,115 L165,110 Z',
+      type: 'state'
+    },
+    { 
+      name: 'Chandigarh', 
+      code: 'CH', 
+      activeReports: 67, 
+      coordinates: { x: 195, y: 105 }, 
+      color: '#10b981',
+      path: 'M190,100 L200,100 L200,110 L190,110 Z',
+      type: 'ut'
     },
     { 
       name: 'Haryana', 
@@ -45,7 +68,8 @@ const IndiaMap: React.FC = () => {
       activeReports: 387, 
       coordinates: { x: 200, y: 120 }, 
       color: '#10b981',
-      path: 'M185,105 L215,100 L225,120 L210,135 L190,130 Z'
+      path: 'M185,105 L215,100 L225,120 L210,135 L190,130 Z',
+      type: 'state'
     },
     { 
       name: 'Delhi', 
@@ -53,7 +77,17 @@ const IndiaMap: React.FC = () => {
       activeReports: 634, 
       coordinates: { x: 210, y: 125 }, 
       color: '#ef4444',
-      path: 'M205,120 L215,120 L215,130 L205,130 Z'
+      path: 'M205,120 L215,120 L215,130 L205,130 Z',
+      type: 'ut'
+    },
+    { 
+      name: 'Uttarakhand', 
+      code: 'UK', 
+      activeReports: 178, 
+      coordinates: { x: 240, y: 100 }, 
+      color: '#10b981',
+      path: 'M220,85 L260,80 L270,105 L250,115 L230,110 Z',
+      type: 'state'
     },
     { 
       name: 'Uttar Pradesh', 
@@ -61,15 +95,19 @@ const IndiaMap: React.FC = () => {
       activeReports: 756, 
       coordinates: { x: 250, y: 140 }, 
       color: '#f59e0b',
-      path: 'M210,125 L290,120 L300,160 L280,170 L220,165 L205,145 Z'
+      path: 'M210,125 L290,120 L300,160 L280,170 L220,165 L205,145 Z',
+      type: 'state'
     },
+
+    // Western States
     { 
       name: 'Rajasthan', 
       code: 'RJ', 
       activeReports: 445, 
       coordinates: { x: 180, y: 160 }, 
       color: '#10b981',
-      path: 'M140,130 L210,125 L205,180 L170,190 L150,170 Z'
+      path: 'M140,130 L210,125 L205,180 L170,190 L150,170 Z',
+      type: 'state'
     },
     { 
       name: 'Gujarat', 
@@ -77,79 +115,28 @@ const IndiaMap: React.FC = () => {
       activeReports: 523, 
       coordinates: { x: 160, y: 200 }, 
       color: '#f59e0b',
-      path: 'M130,180 L180,175 L185,220 L155,235 L135,215 Z'
+      path: 'M130,180 L180,175 L185,220 L155,235 L135,215 Z',
+      type: 'state'
     },
+    { 
+      name: 'Dadra & Nagar Haveli and Daman & Diu', 
+      code: 'DN', 
+      activeReports: 34, 
+      coordinates: { x: 150, y: 210 }, 
+      color: '#10b981',
+      path: 'M145,205 L155,205 L155,215 L145,215 Z',
+      type: 'ut'
+    },
+
+    // Central States
     { 
       name: 'Madhya Pradesh', 
       code: 'MP', 
       activeReports: 398, 
       coordinates: { x: 220, y: 190 }, 
       color: '#10b981',
-      path: 'M180,175 L270,170 L275,210 L240,220 L190,215 Z'
-    },
-    { 
-      name: 'Maharashtra', 
-      code: 'MH', 
-      activeReports: 1247, 
-      coordinates: { x: 200, y: 230 }, 
-      color: '#ef4444',
-      path: 'M155,210 L240,205 L250,250 L210,265 L170,255 Z'
-    },
-    { 
-      name: 'Goa', 
-      code: 'GA', 
-      activeReports: 89, 
-      coordinates: { x: 180, y: 260 }, 
-      color: '#10b981',
-      path: 'M170,250 L185,250 L185,265 L170,265 Z'
-    },
-    { 
-      name: 'Karnataka', 
-      code: 'KA', 
-      activeReports: 892, 
-      coordinates: { x: 210, y: 290 }, 
-      color: '#f59e0b',
-      path: 'M185,265 L250,260 L260,310 L220,320 L195,305 Z'
-    },
-    { 
-      name: 'Kerala', 
-      code: 'KL', 
-      activeReports: 345, 
-      coordinates: { x: 200, y: 340 }, 
-      color: '#10b981',
-      path: 'M190,320 L210,315 L215,360 L195,365 Z'
-    },
-    { 
-      name: 'Tamil Nadu', 
-      code: 'TN', 
-      activeReports: 678, 
-      coordinates: { x: 240, y: 330 }, 
-      color: '#f59e0b',
-      path: 'M215,315 L270,310 L280,350 L250,365 L220,355 Z'
-    },
-    { 
-      name: 'Andhra Pradesh', 
-      code: 'AP', 
-      activeReports: 456, 
-      coordinates: { x: 250, y: 280 }, 
-      color: '#10b981',
-      path: 'M250,250 L290,245 L300,290 L270,300 L245,285 Z'
-    },
-    { 
-      name: 'Telangana', 
-      code: 'TS', 
-      activeReports: 334, 
-      coordinates: { x: 240, y: 250 }, 
-      color: '#10b981',
-      path: 'M225,235 L265,230 L270,260 L245,265 L230,250 Z'
-    },
-    { 
-      name: 'Odisha', 
-      code: 'OR', 
-      activeReports: 267, 
-      coordinates: { x: 290, y: 210 }, 
-      color: '#10b981',
-      path: 'M270,190 L310,185 L320,220 L300,235 L280,225 Z'
+      path: 'M180,175 L270,170 L275,210 L240,220 L190,215 Z',
+      type: 'state'
     },
     { 
       name: 'Chhattisgarh', 
@@ -157,7 +144,95 @@ const IndiaMap: React.FC = () => {
       activeReports: 198, 
       coordinates: { x: 260, y: 190 }, 
       color: '#10b981',
-      path: 'M240,175 L280,170 L285,200 L265,210 L245,200 Z'
+      path: 'M240,175 L280,170 L285,200 L265,210 L245,200 Z',
+      type: 'state'
+    },
+
+    // Western Coastal States
+    { 
+      name: 'Maharashtra', 
+      code: 'MH', 
+      activeReports: 1247, 
+      coordinates: { x: 200, y: 230 }, 
+      color: '#ef4444',
+      path: 'M155,210 L240,205 L250,250 L210,265 L170,255 Z',
+      type: 'state'
+    },
+    { 
+      name: 'Goa', 
+      code: 'GA', 
+      activeReports: 89, 
+      coordinates: { x: 180, y: 260 }, 
+      color: '#10b981',
+      path: 'M170,250 L185,250 L185,265 L170,265 Z',
+      type: 'state'
+    },
+
+    // Southern States
+    { 
+      name: 'Karnataka', 
+      code: 'KA', 
+      activeReports: 892, 
+      coordinates: { x: 210, y: 290 }, 
+      color: '#f59e0b',
+      path: 'M185,265 L250,260 L260,310 L220,320 L195,305 Z',
+      type: 'state'
+    },
+    { 
+      name: 'Kerala', 
+      code: 'KL', 
+      activeReports: 345, 
+      coordinates: { x: 200, y: 340 }, 
+      color: '#10b981',
+      path: 'M190,320 L210,315 L215,360 L195,365 Z',
+      type: 'state'
+    },
+    { 
+      name: 'Tamil Nadu', 
+      code: 'TN', 
+      activeReports: 678, 
+      coordinates: { x: 240, y: 330 }, 
+      color: '#f59e0b',
+      path: 'M215,315 L270,310 L280,350 L250,365 L220,355 Z',
+      type: 'state'
+    },
+    { 
+      name: 'Puducherry', 
+      code: 'PY', 
+      activeReports: 45, 
+      coordinates: { x: 250, y: 340 }, 
+      color: '#10b981',
+      path: 'M245,335 L255,335 L255,345 L245,345 Z',
+      type: 'ut'
+    },
+    { 
+      name: 'Andhra Pradesh', 
+      code: 'AP', 
+      activeReports: 456, 
+      coordinates: { x: 250, y: 280 }, 
+      color: '#10b981',
+      path: 'M250,250 L290,245 L300,290 L270,300 L245,285 Z',
+      type: 'state'
+    },
+    { 
+      name: 'Telangana', 
+      code: 'TS', 
+      activeReports: 334, 
+      coordinates: { x: 240, y: 250 }, 
+      color: '#10b981',
+      path: 'M225,235 L265,230 L270,260 L245,265 L230,250 Z',
+      type: 'state'
+    },
+
+    // Eastern States
+    { 
+      name: 'Odisha', 
+      code: 'OR', 
+      activeReports: 267, 
+      coordinates: { x: 290, y: 210 }, 
+      color: '#10b981',
+      path: 'M270,190 L310,185 L320,220 L300,235 L280,225 Z',
+      type: 'state'
     },
     { 
       name: 'Jharkhand', 
@@ -165,7 +240,8 @@ const IndiaMap: React.FC = () => {
       activeReports: 223, 
       coordinates: { x: 290, y: 170 }, 
       color: '#10b981',
-      path: 'M275,155 L310,150 L320,180 L300,190 L280,185 Z'
+      path: 'M275,155 L310,150 L320,180 L300,190 L280,185 Z',
+      type: 'state'
     },
     { 
       name: 'West Bengal', 
@@ -173,7 +249,8 @@ const IndiaMap: React.FC = () => {
       activeReports: 589, 
       coordinates: { x: 320, y: 180 }, 
       color: '#f59e0b',
-      path: 'M310,160 L350,155 L360,200 L340,210 L320,195 Z'
+      path: 'M310,160 L350,155 L360,200 L340,210 L320,195 Z',
+      type: 'state'
     },
     { 
       name: 'Bihar', 
@@ -181,7 +258,19 @@ const IndiaMap: React.FC = () => {
       activeReports: 412, 
       coordinates: { x: 290, y: 140 }, 
       color: '#10b981',
-      path: 'M270,125 L320,120 L330,150 L310,160 L280,155 Z'
+      path: 'M270,125 L320,120 L330,150 L310,160 L280,155 Z',
+      type: 'state'
+    },
+
+    // Northeastern States
+    { 
+      name: 'Sikkim', 
+      code: 'SK', 
+      activeReports: 29, 
+      coordinates: { x: 340, y: 130 }, 
+      color: '#10b981',
+      path: 'M335,125 L350,123 L355,135 L340,140 Z',
+      type: 'state'
     },
     { 
       name: 'Assam', 
@@ -189,47 +278,8 @@ const IndiaMap: React.FC = () => {
       activeReports: 178, 
       coordinates: { x: 360, y: 140 }, 
       color: '#10b981',
-      path: 'M340,125 L390,120 L400,155 L370,160 L350,145 Z'
-    },
-    { 
-      name: 'Meghalaya', 
-      code: 'ML', 
-      activeReports: 67, 
-      coordinates: { x: 360, y: 160 }, 
-      color: '#10b981',
-      path: 'M350,150 L375,148 L380,165 L365,170 Z'
-    },
-    { 
-      name: 'Tripura', 
-      code: 'TR', 
-      activeReports: 45, 
-      coordinates: { x: 370, y: 180 }, 
-      color: '#10b981',
-      path: 'M365,170 L380,168 L385,185 L370,190 Z'
-    },
-    { 
-      name: 'Mizoram', 
-      code: 'MZ', 
-      activeReports: 34, 
-      coordinates: { x: 365, y: 200 }, 
-      color: '#10b981',
-      path: 'M360,190 L375,188 L380,205 L365,210 Z'
-    },
-    { 
-      name: 'Manipur', 
-      code: 'MN', 
-      activeReports: 56, 
-      coordinates: { x: 375, y: 160 }, 
-      color: '#10b981',
-      path: 'M370,150 L385,148 L390,165 L375,170 Z'
-    },
-    { 
-      name: 'Nagaland', 
-      code: 'NL', 
-      activeReports: 43, 
-      coordinates: { x: 380, y: 140 }, 
-      color: '#10b981',
-      path: 'M375,130 L395,128 L400,145 L385,150 Z'
+      path: 'M340,125 L390,120 L400,155 L370,160 L350,145 Z',
+      type: 'state'
     },
     { 
       name: 'Arunachal Pradesh', 
@@ -237,15 +287,73 @@ const IndiaMap: React.FC = () => {
       activeReports: 78, 
       coordinates: { x: 400, y: 120 }, 
       color: '#10b981',
-      path: 'M385,105 L420,100 L430,135 L405,140 L390,125 Z'
+      path: 'M385,105 L420,100 L430,135 L405,140 L390,125 Z',
+      type: 'state'
     },
     { 
-      name: 'Sikkim', 
-      code: 'SK', 
-      activeReports: 29, 
-      coordinates: { x: 340, y: 130 }, 
+      name: 'Nagaland', 
+      code: 'NL', 
+      activeReports: 43, 
+      coordinates: { x: 380, y: 140 }, 
       color: '#10b981',
-      path: 'M335,125 L350,123 L355,135 L340,140 Z'
+      path: 'M375,130 L395,128 L400,145 L385,150 Z',
+      type: 'state'
+    },
+    { 
+      name: 'Manipur', 
+      code: 'MN', 
+      activeReports: 56, 
+      coordinates: { x: 375, y: 160 }, 
+      color: '#10b981',
+      path: 'M370,150 L385,148 L390,165 L375,170 Z',
+      type: 'state'
+    },
+    { 
+      name: 'Mizoram', 
+      code: 'MZ', 
+      activeReports: 34, 
+      coordinates: { x: 365, y: 200 }, 
+      color: '#10b981',
+      path: 'M360,190 L375,188 L380,205 L365,210 Z',
+      type: 'state'
+    },
+    { 
+      name: 'Tripura', 
+      code: 'TR', 
+      activeReports: 45, 
+      coordinates: { x: 370, y: 180 }, 
+      color: '#10b981',
+      path: 'M365,170 L380,168 L385,185 L370,190 Z',
+      type: 'state'
+    },
+    { 
+      name: 'Meghalaya', 
+      code: 'ML', 
+      activeReports: 67, 
+      coordinates: { x: 360, y: 160 }, 
+      color: '#10b981',
+      path: 'M350,150 L375,148 L380,165 L365,170 Z',
+      type: 'state'
+    },
+
+    // Island Territories
+    { 
+      name: 'Andaman & Nicobar Islands', 
+      code: 'AN', 
+      activeReports: 23, 
+      coordinates: { x: 380, y: 320 }, 
+      color: '#10b981',
+      path: 'M375,310 L385,310 L385,330 L375,330 Z',
+      type: 'ut'
+    },
+    { 
+      name: 'Lakshadweep', 
+      code: 'LD', 
+      activeReports: 12, 
+      coordinates: { x: 120, y: 320 }, 
+      color: '#10b981',
+      path: 'M115,315 L125,315 L125,325 L115,325 Z',
+      type: 'ut'
     }
   ];
 
@@ -255,6 +363,9 @@ const IndiaMap: React.FC = () => {
     { id: 'CR-003', location: 'CP, Delhi', type: 'Sanitation', status: 'submitted', time: '6h ago' },
     { id: 'CR-004', location: 'Park Street, Kolkata', type: 'Water Supply', status: 'resolved', time: '8h ago' },
     { id: 'CR-005', location: 'Anna Nagar, Chennai', type: 'Traffic Signal', status: 'acknowledged', time: '12h ago' },
+    { id: 'CR-006', location: 'Sector 17, Chandigarh', type: 'Streetlight', status: 'in-progress', time: '1d ago' },
+    { id: 'CR-007', location: 'Leh, Ladakh', type: 'Road Damage', status: 'submitted', time: '1d ago' },
+    { id: 'CR-008', location: 'Shimla, HP', type: 'Water Supply', status: 'resolved', time: '2d ago' },
   ];
 
   const getStatusColor = (status: string) => {
@@ -273,6 +384,10 @@ const IndiaMap: React.FC = () => {
     return '#10b981'; // Green for low
   };
 
+  const totalReports = statesData.reduce((sum, state) => sum + state.activeReports, 0);
+  const stateCount = statesData.filter(s => s.type === 'state').length;
+  const utCount = statesData.filter(s => s.type === 'ut').length;
+
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -283,6 +398,13 @@ const IndiaMap: React.FC = () => {
           <p className="text-xl text-gray-600">
             Real-time tracking of civic issues across India
           </p>
+          <div className="flex justify-center space-x-6 mt-4 text-sm text-gray-600">
+            <span>{stateCount} States</span>
+            <span>•</span>
+            <span>{utCount} Union Territories</span>
+            <span>•</span>
+            <span>{totalReports.toLocaleString()} Active Reports</span>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
@@ -302,30 +424,41 @@ const IndiaMap: React.FC = () => {
                   </div>
                   <div className="flex items-center space-x-2">
                     <div className="w-4 h-4 bg-green-500 rounded"></div>
-                    <span>Low Priority (&lt;200 reports)</span>
+                    <span>Low Priority (<200 reports)</span>
+                  </div>
+                  <div className="mt-3 pt-3 border-t border-gray-200">
+                    <div className="flex items-center space-x-2 mb-1">
+                      <div className="w-3 h-3 border-2 border-blue-600 rounded"></div>
+                      <span>States</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <div className="w-3 h-3 border-2 border-purple-600 rounded"></div>
+                      <span>Union Territories</span>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* India Map with States */}
+              {/* India Map with All States and UTs */}
               <div className="w-full h-full bg-gradient-to-br from-blue-50 to-green-50 rounded-lg relative">
                 <svg viewBox="0 0 500 400" className="w-full h-full">
-                  {/* State boundaries */}
+                  {/* State and UT boundaries */}
                   {statesData.map((state) => (
                     <g key={state.code}>
                       <path
                         d={state.path}
                         fill={getReportColor(state.activeReports)}
                         fillOpacity="0.7"
-                        stroke="#ffffff"
-                        strokeWidth="1.5"
+                        stroke={state.type === 'state' ? '#2563eb' : '#7c3aed'}
+                        strokeWidth={state.type === 'state' ? '2' : '1.5'}
+                        strokeDasharray={state.type === 'ut' ? '3,2' : 'none'}
                         className="hover:fill-opacity-90 transition-all cursor-pointer"
                         onMouseEnter={() => setHoveredState(state.name)}
                         onMouseLeave={() => setHoveredState(null)}
                         onClick={() => setSelectedState(state)}
                       />
                       
-                      {/* State labels */}
+                      {/* State/UT labels */}
                       <text
                         x={state.coordinates.x}
                         y={state.coordinates.y}
@@ -371,6 +504,18 @@ const IndiaMap: React.FC = () => {
                     <circle cx="240" cy="330" r="4" fill="#1f2937" />
                     <text x="240" y="345" textAnchor="middle" className="text-xs font-medium fill-gray-700">Chennai</text>
                   </g>
+                  <g>
+                    <circle cx="240" cy="250" r="4" fill="#1f2937" />
+                    <text x="240" y="265" textAnchor="middle" className="text-xs font-medium fill-gray-700">Hyderabad</text>
+                  </g>
+                  <g>
+                    <circle cx="180" cy="260" r="4" fill="#1f2937" />
+                    <text x="180" y="275" textAnchor="middle" className="text-xs font-medium fill-gray-700">Panaji</text>
+                  </g>
+                  <g>
+                    <circle cx="200" cy="340" r="4" fill="#1f2937" />
+                    <text x="200" y="355" textAnchor="middle" className="text-xs font-medium fill-gray-700">Kochi</text>
+                  </g>
                 </svg>
 
                 {/* Hover tooltip */}
@@ -379,6 +524,9 @@ const IndiaMap: React.FC = () => {
                     <div className="font-semibold text-gray-900 mb-1">{hoveredState}</div>
                     <div className="text-sm text-gray-600 mb-2">
                       {statesData.find(s => s.name === hoveredState)?.activeReports} active reports
+                    </div>
+                    <div className="text-xs text-gray-500 mb-1">
+                      Type: {statesData.find(s => s.name === hoveredState)?.type === 'state' ? 'State' : 'Union Territory'}
                     </div>
                     <div className="text-xs text-gray-500">
                       Priority: {(() => {
@@ -394,7 +542,14 @@ const IndiaMap: React.FC = () => {
               {selectedState && (
                 <div className="absolute bottom-4 left-4 bg-white rounded-lg shadow-lg p-6 max-w-sm border border-gray-200">
                   <div className="flex items-start justify-between mb-3">
-                    <h4 className="font-bold text-gray-900 text-lg">{selectedState.name}</h4>
+                    <div>
+                      <h4 className="font-bold text-gray-900 text-lg">{selectedState.name}</h4>
+                      <span className={`text-xs px-2 py-1 rounded-full ${
+                        selectedState.type === 'state' ? 'bg-blue-100 text-blue-800' : 'bg-purple-100 text-purple-800'
+                      }`}>
+                        {selectedState.type === 'state' ? 'State' : 'Union Territory'}
+                      </span>
+                    </div>
                     <button 
                       onClick={() => setSelectedState(null)}
                       className="text-gray-400 hover:text-gray-600 text-xl leading-none"
@@ -417,7 +572,7 @@ const IndiaMap: React.FC = () => {
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">State Code:</span>
+                      <span className="text-gray-600">Code:</span>
                       <span className="font-semibold text-gray-900">{selectedState.code}</span>
                     </div>
                   </div>
@@ -438,7 +593,7 @@ const IndiaMap: React.FC = () => {
                 <Info className="h-5 w-5 mr-2 text-blue-600" />
                 Recent Reports
               </h3>
-              <div className="space-y-3">
+              <div className="space-y-3 max-h-96 overflow-y-auto">
                 {recentReports.map((report) => (
                   <div key={report.id} className="border border-gray-100 rounded-lg p-3 hover:bg-gray-50 transition-colors">
                     <div className="flex items-start justify-between mb-2">
@@ -467,7 +622,10 @@ const IndiaMap: React.FC = () => {
                   Filter by Status
                 </button>
                 <button className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 px-4 rounded-lg text-sm font-medium transition-colors">
-                  View Heatmap
+                  Show States Only
+                </button>
+                <button className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 px-4 rounded-lg text-sm font-medium transition-colors">
+                  Show UTs Only
                 </button>
                 <button className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 px-4 rounded-lg text-sm font-medium transition-colors">
                   Export Data
@@ -481,7 +639,7 @@ const IndiaMap: React.FC = () => {
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-gray-600">Total Reports</span>
-                  <span className="font-semibold text-gray-900">8,924</span>
+                  <span className="font-semibold text-gray-900">{totalReports.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-gray-600">Resolved Today</span>
@@ -494,6 +652,14 @@ const IndiaMap: React.FC = () => {
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-gray-600">High Priority</span>
                   <span className="font-semibold text-red-600">23</span>
+                </div>
+                <div className="flex justify-between items-center pt-2 border-t border-gray-100">
+                  <span className="text-sm text-gray-600">States Covered</span>
+                  <span className="font-semibold text-blue-600">{stateCount}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">Union Territories</span>
+                  <span className="font-semibold text-purple-600">{utCount}</span>
                 </div>
               </div>
             </div>
