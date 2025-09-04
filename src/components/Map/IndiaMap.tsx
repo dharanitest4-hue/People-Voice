@@ -312,26 +312,6 @@ const IndiaMap: React.FC = () => {
       </div>
     </div>
   );
-
-  function getStatusColor(status: string): string {
-    switch (status) {
-      case 'submitted': return 'text-red-600 bg-red-100';
-      case 'acknowledged': return 'text-yellow-600 bg-yellow-100';
-      case 'in-progress': return 'text-blue-600 bg-blue-100';
-      case 'resolved': return 'text-green-600 bg-green-100';
-      default: return 'text-gray-600 bg-gray-100';
-    }
-  }
-
-  function getStatusIcon(status: string) {
-    switch (status) {
-      case 'submitted': return AlertCircle;
-      case 'acknowledged': return Eye;
-      case 'in-progress': return Clock;
-      case 'resolved': return CheckCircle;
-      default: return AlertCircle;
-    }
-  }
 };
 
 export default IndiaMap;
